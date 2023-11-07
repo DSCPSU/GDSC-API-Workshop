@@ -99,23 +99,29 @@ function greet(name) {
   // First, you have to install Axios in your project: npm install axios
   const axios = require('axios');
   
-  async function getWeatherData(city) {
-    const options = {
-      method: 'GET',
-      url: 'http://api.openweathermap.org/data/2.5/weather',
-      params: { q: city, appid: 'your_api_key' } // Replace 'your_api_key' with your actual API key
+  async function dallEGen(){
+    const bodyData = {
+        prompt: ``,
+        n: 1,
+        size: '1024x1024',
+        response_format: "url",
     };
-  
-    try {
-      const response = await axios.request(options);
-      console.log(response.data); // Log weather data
-    } catch (error) {
-      console.error(error); // Log any error that occurs during the API call
-    }
+    const config = {
+        method: 'post',
+        url: 'https://api.openai.com/v1/images/generations',
+        headers: { 
+          'Content-Type': 'application/json', 
+          'Authorization': '<PUT BEARER FIRST>'
+        },
+        data : JSON.stringify(bodyData)
+    };
+    //calls openAI embeddings API and gets response
+    const response = await axios(config);
+    console.log(response.data.data[0].url)
+    return response.data.data
   }
+  dallEGen()
   
-  // Usage example. Replace 'city_name' with an actual city and 'your_api_key' with your OpenWeatherMap API key
-  getWeatherData('city_name');
   
   // Remember that when using an API, it's essential to handle errors and consider rate limits and authentication as required by the API provider.
   
