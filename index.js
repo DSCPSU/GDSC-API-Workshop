@@ -101,17 +101,18 @@ function greet(name) {
   
   async function dallEGen(){
     const bodyData = {
-        prompt: ``,
+        prompt: ``, //put your image prompt here
         n: 1,
         size: '1024x1024',
         response_format: "url",
     };
+    const apiKey = '' //put your OpenAI API key in here
     const config = {
         method: 'post',
         url: 'https://api.openai.com/v1/images/generations',
         headers: { 
           'Content-Type': 'application/json', 
-          'Authorization': '<PUT BEARER FIRST>'
+          'Authorization': `Bearer ${apiKey}`
         },
         data : JSON.stringify(bodyData)
     };
